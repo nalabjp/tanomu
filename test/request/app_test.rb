@@ -27,7 +27,7 @@ class AppTest < MiniTest::Test
     assert_equal '', last_response.body
   end
 
-  def test_post_with_correct_token
+  def test_post_with_correct_token_with_params
     Webhook.expects(:run).with(event_type: 'issue_comment', payload: { 'issue' => { 'comment' => 'content' } })
 
     post '/token', '{"issue":{"comment":"content"}}', { 'HTTP_X_GITHUB_EVENT' => 'issue_comment' }
