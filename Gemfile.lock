@@ -19,7 +19,6 @@ GEM
       slop (~> 3.4)
     puma (3.2.0)
     rack (1.6.4)
-    rack-github_webhooks (0.3.0)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -44,7 +43,6 @@ DEPENDENCIES
   octokit
   pry
   puma
-  rack-github_webhooks
   rack-test
   rake
   sinatra
