@@ -5,6 +5,7 @@ gem 'rack-github_webhooks'
 gem 'sinatra'
 gem 'rake'
 gem 'octokit'
+gem 'puma'
 
 group :test do
   gem 'minitest'

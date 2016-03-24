@@ -17,6 +17,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    puma (3.2.0)
     rack (1.6.4)
     rack-github_webhooks (0.3.0)
     rack-protection (1.5.3)
@@ -42,6 +43,7 @@ DEPENDENCIES
   mocha
   octokit
   pry
+  puma
   rack-github_webhooks
   rack-test
   rake
