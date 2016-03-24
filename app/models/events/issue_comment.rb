@@ -1,5 +1,7 @@
+require './app/models/events/base'
+
 module Events
-  class IssueComment
+  class IssueComment < Events::Base
     attr_reader :payload
 
     def initialize(payload:)
@@ -7,17 +9,25 @@ module Events
     end
 
     def hook
-      return if payload.nil?
+      return unless payload
+      return unless team_name
+      return unless new_assignee
 
-      comment = payload.dig('comment', 'body')
+      client.update_issue("#{organization_name}/#{repository_name}", pull_request_number, assignee: new_assignee)
+    end
 
-      # TODO
-      # commentからteamパターンを取得
-      # team名を取得
-      # team_idを取得
-      # membersを取得
-      # randomに選出
-      # prに対してassign
+    private
+
+    def team_name
+      return @team_name unless @team_name.nil?
+
+      assign_phrase = ENV.fetch('ASSIGN_PHRASE') # Please assign %team
+      assign_phrase_pattern = Regexp.new(assign_phrase.sub('%team', '(?<team_name>.+)'))
+      @team_name = comment.match(assign_phrase_pattern)&.[](:team_name)
+    end
+
+    def comment
+      @comment ||= payload.dig('comment', 'body')
     end
   end
 end
