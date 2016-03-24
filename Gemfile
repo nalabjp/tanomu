@@ -10,6 +10,6 @@ group :test do
   gem 'mocha'
 end
 
-group :development do
+group :development, :test do
   gem 'pry'
 end
