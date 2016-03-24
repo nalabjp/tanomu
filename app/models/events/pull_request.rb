@@ -18,21 +18,14 @@ module Events
     end
 
     private
+    alias_method :team_name, :repository_name
+
     def new_assignee
       candidates.sample
     end
 
     def assignee
       payload.dig('pull_request', 'assignee', 'login')
-    end
-
-    def repository_name
-      payload.dig('pull_request', 'repository', 'name')
-    end
-    alias_method :team_name, :repository_name
-
-    def organization_name
-      payload.dig('pull_request', 'repository', 'full_name')&.split('/')&.first
     end
 
     def creator

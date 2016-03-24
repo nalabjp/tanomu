@@ -23,5 +23,13 @@ module Events
     def new_assignee
       candidates.sample
     end
+
+    def repository_name
+      payload.dig('repository', 'name')
+    end
+
+    def organization_name
+      payload.dig('repository', 'full_name')&.split('/')&.first
+    end
   end
 end

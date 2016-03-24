@@ -8,11 +8,11 @@ class Events::IssueCommentTest < MiniTest::Test
         'assignee' => nil,
         'user' => {
           'login' => 'ppworks'
-        },
-        'repository' => {
-          'name' => 'sandbox',
-          'full_name' => 'genuineblue/sandbox'
         }
+      },
+      'repository' => {
+        'name' => 'sandbox',
+        'full_name' => 'genuineblue/sandbox'
       },
       'comment' => {
         'body' => 'tech_teamをアサインして'
