@@ -1,4 +1,5 @@
 ENV['RACK_ENV'] = 'test'
+ENV['SECRET_TOKEN'] = 'secret'
 ENV['TOKEN'] = 'token'
 ENV['GITHUB_API_TOKEN'] = 'github_api_token'
 ENV['ASSIGN_PHRASE'] = '%teamをアサイン'
