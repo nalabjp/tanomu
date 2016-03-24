@@ -30,5 +30,25 @@ module Events
     def comment
       @comment ||= payload.dig('comment', 'body')
     end
+
+    def assignee
+      payload.dig('issue', 'assignee', 'login')
+    end
+
+    def repository_name
+      payload.dig('issue', 'repository', 'name')
+    end
+
+    def organization_name
+      payload.dig('issue', 'repository', 'full_name')&.split('/')&.first
+    end
+
+    def creator
+      payload.dig('issue', 'user', 'login')
+    end
+
+    def pull_request_number
+      payload.dig('issue', 'number')
+    end
   end
 end

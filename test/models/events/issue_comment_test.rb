@@ -3,7 +3,7 @@ require File.expand_path '../../../test_helper.rb', __FILE__
 class Events::IssueCommentTest < MiniTest::Test
   def test_hook
     payload = {
-      'pull_request' => {
+      'issue' => {
         'number' => 1,
         'assignee' => nil,
         'user' => {
