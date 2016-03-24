@@ -4,6 +4,7 @@ class Events::PullRequestTest < MiniTest::Test
   def test_hook
     payload = {
       'pull_request' => {
+        'title' => 'Pull request',
         'number' => 1,
         'assignee' => nil,
         'user' => {
@@ -21,6 +22,27 @@ class Events::PullRequestTest < MiniTest::Test
     client.expects(:team_members).returns([OpenStruct.new(login: 'ppworks'), OpenStruct.new(login: 'ppworks2')])
     client.expects(:update_issue).with('genuineblue/sandbox', 1, assignee: 'ppworks2')
     Octokit::Client.expects(:new).with(access_token: ENV.fetch('GITHUB_API_TOKEN')).returns(client)
+
+    Events::PullRequest.new(payload: payload).hook
+  end
+
+  def test_wip_hook
+    payload = {
+      'pull_request' => {
+        'title' => '[WIP] Pull request',
+        'number' => 1,
+        'assignee' => nil,
+        'user' => {
+          'login' => 'ppworks'
+        }
+      },
+      'repository' => {
+        'name' => 'sandbox',
+        'full_name' => 'genuineblue/sandbox'
+      }
+    }
+
+    Octokit::Client.expects(:new).with(access_token: ENV.fetch('GITHUB_API_TOKEN')).never
 
     Events::PullRequest.new(payload: payload).hook
   end

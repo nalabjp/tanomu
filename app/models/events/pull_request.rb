@@ -11,6 +11,7 @@ module Events
     def hook
       return unless payload
       return if payload['action'] == 'unassigned'
+      return if wip?
       return if assignee
       return unless team_name
       return unless new_assignee
@@ -20,6 +21,10 @@ module Events
 
     private
     alias_method :team_name, :repository_name
+
+    def wip?
+      payload.dig('pull_request', 'title') =~ /\A(?:WIP|\(WIP\)|\[WIP\])/i
+    end
 
     def new_assignee
       candidates.sample
