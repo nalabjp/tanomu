@@ -5,6 +5,9 @@
     "assignee"
   ],
   "env": {
+    "TOKEN": {
+      "description": "Your GitHub webhook token"
+    },
     "GITHUB_API_TOKEN": {
       "description": "Your GitHub token"
     },
