@@ -1,0 +1,16 @@
+{
+  "name": "tanomu",
+  "keywords": [
+    "github",
+    "assignee"
+  ],
+  "env": {
+    "GITHUB_API_TOKEN": {
+      "description": "Your GitHub token"
+    },
+    "ASSIGN_PHRASE": {
+      "description": "Phrase for team assignment",
+      "value": "Please assign %team"
+    }
+  }
+}
