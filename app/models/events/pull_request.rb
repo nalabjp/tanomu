@@ -1,6 +1,6 @@
 require 'octokit'
 
-module Github
+module Events
   class PullRequest
     attr_reader :payload
 

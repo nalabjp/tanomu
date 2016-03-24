@@ -1,4 +1,4 @@
-module Github
+module Events
   class IssueComment
     attr_reader :payload
 

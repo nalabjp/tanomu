@@ -1,5 +1,5 @@
-require './app/models/github/issue_comment'
-require './app/models/github/pull_request'
+require './app/models/events/issue_comment'
+require './app/models/events/pull_request'
 
 class Webhook
   class << self
@@ -15,7 +15,7 @@ class Webhook
     private
 
     def event_class(event_type)
-      Github.const_get event_type.split(/_/).map(&:capitalize).join
+      Events.const_get event_type.split(/_/).map(&:capitalize).join
     end
   end
 end
