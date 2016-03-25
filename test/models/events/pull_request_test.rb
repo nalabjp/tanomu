@@ -35,7 +35,7 @@ class Events::PullRequestTest < MiniTest::Test
         'user' => {
           'login' => 'ppworks'
         },
-        'body' => 'tech_teamをアサインして'
+        'body' => "blah blah blah\ntech_teamをアサインして"
       },
       'repository' => {
         'name' => 'sandbox',
