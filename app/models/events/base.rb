@@ -6,6 +6,8 @@ module Events
 
     def update_pull_request
       client.update_issue("#{organization_name}/#{repository_name}", pull_request_number, assignee: new_assignee)
+    rescue Octokit::NotFound
+      puts "Does #{team_name} have 'write' permission?"
     end
 
     def client

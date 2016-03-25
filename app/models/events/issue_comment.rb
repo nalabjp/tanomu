@@ -13,7 +13,7 @@ module Events
       return unless team_name
       return unless new_assignee
 
-      client.update_issue("#{organization_name}/#{repository_name}", pull_request_number, assignee: new_assignee)
+      update_pull_request
     end
 
     private
