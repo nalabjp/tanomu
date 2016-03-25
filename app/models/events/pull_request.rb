@@ -20,7 +20,10 @@ module Events
     end
 
     private
-    alias_method :team_name, :repository_name
+
+    def team_name
+      team_name_by_phrase(payload.dig('pull_request', 'body')) || repository_name
+    end
 
     def wip?
       payload.dig('pull_request', 'title') =~ /\A(?:WIP|\(WIP\)|\[WIP\])/i

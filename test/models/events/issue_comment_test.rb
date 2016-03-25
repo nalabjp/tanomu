@@ -21,7 +21,7 @@ class Events::IssueCommentTest < MiniTest::Test
 
     client = mock('Octokit::Client')
     client.expects(:organization_teams).returns([OpenStruct.new(name: 'sandbox', id: 12345), OpenStruct.new(name: 'tech_team', id: 12346)])
-    client.expects(:team_members).returns([OpenStruct.new(login: 'ppworks'), OpenStruct.new(login: 'ppworks3')])
+    client.expects(:team_members).with(12346, { per_page: 100 }).returns([OpenStruct.new(login: 'ppworks'), OpenStruct.new(login: 'ppworks3')])
     client.expects(:update_issue).with('genuineblue/sandbox', 1, assignee: 'ppworks3')
     Octokit::Client.expects(:new).with(access_token: ENV.fetch('GITHUB_API_TOKEN')).returns(client)
 

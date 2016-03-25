@@ -13,7 +13,7 @@ module Events
     end
 
     def team
-      @team ||= client.organization_teams(organization_name, { per_page: 100 }).find { |t| t['name'] == team_name }
+      @team ||= client.organization_teams(organization_name, { per_page: 100 })&.find { |t| t['name'] == team_name }
     end
 
     def candidates
@@ -30,6 +30,14 @@ module Events
 
     def organization_name
       payload.dig('repository', 'full_name')&.split('/')&.first
+    end
+
+    def team_name_by_phrase(content)
+      return @team_name if @team_name ||= nil
+
+      assign_phrase = ENV.fetch('ASSIGN_PHRASE') # Please assign %team
+      assign_phrase_pattern = Regexp.new(assign_phrase.sub('%team', '(?<team_name>.+)'))
+      @team_name = content&.match(assign_phrase_pattern)&.[](:team_name)
     end
   end
 end

@@ -6,7 +6,6 @@ module Events
 
     def initialize(payload:)
       @payload = payload
-      @team_name = nil
     end
 
     def hook
@@ -20,11 +19,7 @@ module Events
     private
 
     def team_name
-      return @team_name if @team_name
-
-      assign_phrase = ENV.fetch('ASSIGN_PHRASE') # Please assign %team
-      assign_phrase_pattern = Regexp.new(assign_phrase.sub('%team', '(?<team_name>.+)'))
-      @team_name = comment.match(assign_phrase_pattern)&.[](:team_name)
+      team_name_by_phrase(comment)
     end
 
     def comment
