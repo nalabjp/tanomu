@@ -1,7 +1,7 @@
 ruby '2.3.0'
 source 'https://rubygems.org'
 
-gem 'rack-github_webhooks'
+gem 'rack-github_webhooks', github: 'ppworks/rack-github_webhooks', branch: 'rewind_after_read'
 gem 'sinatra'
 gem 'rake'
 gem 'octokit'

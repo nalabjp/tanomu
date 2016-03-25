@@ -14,7 +14,6 @@ class App < Sinatra::Base
   private
 
   def payload
-    request.body.rewind
     JSON.parse(request.body.read)
   rescue JSON::ParserError
     {}
