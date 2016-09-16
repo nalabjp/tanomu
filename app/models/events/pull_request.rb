@@ -10,6 +10,7 @@ module Events
 
     def hook
       return unless payload
+      return if payload['action'] == 'assigned'
       return if payload['action'] == 'unassigned'
       return if wip?
       return if assignee
