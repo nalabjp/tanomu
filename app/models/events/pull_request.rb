@@ -15,7 +15,7 @@ module Events
       return if wip?
       return if assignee
       return unless team_name
-      return unless new_assignee
+      return unless new_assignees
 
       update_pull_request
     end
@@ -30,8 +30,8 @@ module Events
       payload.dig('pull_request', 'title') =~ /\A(?:WIP|\(WIP\)|\[WIP\])/i
     end
 
-    def new_assignee
-      candidates.sample
+    def new_assignees
+      Array(candidates.sample)
     end
 
     def assignee

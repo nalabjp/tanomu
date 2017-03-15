@@ -11,7 +11,7 @@ module Events
     def hook
       return unless payload
       return unless team_name
-      return unless new_assignee
+      return unless new_assignees
 
       update_pull_request
     end

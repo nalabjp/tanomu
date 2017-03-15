@@ -5,7 +5,7 @@ module Events
     private
 
     def update_pull_request
-      client.update_issue("#{organization_name}/#{repository_name}", pull_request_number, assignee: new_assignee)
+      client.update_issue("#{organization_name}/#{repository_name}", pull_request_number, assignees: new_assignees)
     rescue Octokit::NotFound
       puts "Does #{team_name} have 'write' permission?"
     end
@@ -22,8 +22,8 @@ module Events
       @candidates ||= client.team_members(team.id, { per_page: 100 }).map(&:login) - [creator]
     end
 
-    def new_assignee
-      candidates.sample
+    def new_assignees
+      Array(candidates.sample)
     end
 
     def repository_name
