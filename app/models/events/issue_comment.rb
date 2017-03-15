@@ -1,3 +1,4 @@
+require './app/models/config'
 require './app/models/events/base'
 
 module Events
@@ -36,6 +37,12 @@ module Events
 
     def pull_request_number
       payload.dig('issue', 'number')
+    end
+
+    def new_assignees_size
+      Integer(Config["#{team_name}.issue.assignees"])
+    rescue TypeError, ArgumentError
+      1
     end
   end
 end

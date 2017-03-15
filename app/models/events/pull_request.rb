@@ -1,3 +1,4 @@
+require './app/models/config'
 require './app/models/events/base'
 
 module Events
@@ -30,10 +31,6 @@ module Events
       payload.dig('pull_request', 'title') =~ /\A(?:WIP|\(WIP\)|\[WIP\])/i
     end
 
-    def new_assignees
-      Array(candidates.sample)
-    end
-
     def assignee
       payload.dig('pull_request', 'assignee', 'login')
     end
@@ -44,6 +41,12 @@ module Events
 
     def pull_request_number
       payload.dig('pull_request', 'number')
+    end
+
+    def new_assignees_size
+      Integer(Config["#{team_name}.pull_request.assignees"])
+    rescue TypeError, ArgumentError
+      1
     end
   end
 end

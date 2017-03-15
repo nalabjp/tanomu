@@ -23,7 +23,7 @@ module Events
     end
 
     def new_assignees
-      Array(candidates.sample)
+      Array(candidates.sample(new_assignees_size)).sort
     end
 
     def repository_name
@@ -40,6 +40,10 @@ module Events
       assign_phrase = ENV.fetch('ASSIGN_PHRASE') # Please assign %team
       assign_phrase_pattern = Regexp.new(assign_phrase.sub('%team', '(?<team_name>.+)'))
       @team_name = content&.match(assign_phrase_pattern)&.[](:team_name)
+    end
+
+    def new_assignees_size
+      1
     end
   end
 end

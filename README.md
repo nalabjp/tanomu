@@ -31,3 +31,31 @@ Please set Personal access token for your GitHub account(or Bot account) which h
 ### ASSIGN_PHRASE
 
 Please set phrase for team assignment. `%team` is required for assignment team name.
+
+## Customization
+
+### Multiple assginees
+
+If you want to assign Pull Request to multiple members, you can configure assignees size in `application.yml`.
+
+First, you should replace your `team_name` or `repository` to `YOUR_TEAM_NAME_OR_REPOSITORY`.
+
+```
+- YOUR_TEAM_NAME_OR_REPOSITORY:
++ tech_team:
+  pull_request:
+    assignees: 2
+  issue:
+    assignees: 2
+```
+
+Second, you will configure assignees size.
+
+```
+tech_team:
+  pull_request:
+    assignees: 2
+  issue:
+-    assignees: 2
++    assignees: 3
+```

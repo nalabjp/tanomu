@@ -26,6 +26,32 @@ class Events::PullRequestTest < MiniTest::Test
     Events::PullRequest.new(payload: payload).hook
   end
 
+  def test_hook_with_multiple_assignees
+    payload = {
+      'pull_request' => {
+        'title' => 'Pull request',
+        'number' => 1,
+        'assignee' => nil,
+        'user' => {
+          'login' => 'ppworks'
+        }
+      },
+      'repository' => {
+        'name' => 'sandbox',
+        'full_name' => 'genuineblue/sandbox'
+      }
+    }
+
+    client = mock('Octokit::Client')
+    client.expects(:organization_teams).returns([OpenStruct.new(name: 'sandbox', id: 12345)])
+    client.expects(:team_members).with(12345, { per_page: 100 }).returns([OpenStruct.new(login: 'ppworks'), OpenStruct.new(login: 'ppworks2'), OpenStruct.new(login: 'nalabjp')])
+    client.expects(:update_issue).with('genuineblue/sandbox', 1, assignees: ['nalabjp', 'ppworks2'])
+    Octokit::Client.expects(:new).with(access_token: ENV.fetch('GITHUB_API_TOKEN')).returns(client)
+    Config.expects(:[]).with("sandbox.pull_request.assignees").at_least_once.returns(2)
+
+    Events::PullRequest.new(payload: payload).hook
+  end
+
   def test_hook_by_pull_request_body
     payload = {
       'pull_request' => {
